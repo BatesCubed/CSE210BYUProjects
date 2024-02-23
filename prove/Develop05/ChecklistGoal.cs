@@ -6,22 +6,36 @@ public class ChecklistGoal : Goal
 
     public ChecklistGoal(string name, string description, int points, int target, int bonus) : base(name, description, points)
     {
-        //
+        _shortName = name;
+        _description = description;
+        _points = points;
+        _target = target;
+        _bonus = bonus;
     }
 
+    public int GetBonusPoints()
+    {
+        return _bonus;
+    }
     public override void RecordEvent()
     {
-        //
+        
     }
 
     public override bool IsComplete()
     {
-        return true;
+        if (_amountCompleted == _target)
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public override string GetDetailsString()
     {
-        return "";
+       return $"{_shortName} ({_description})  -- Currently Completed: {_amountCompleted}/{_target}";
     }
 
     public override string GetStringRepresentation()

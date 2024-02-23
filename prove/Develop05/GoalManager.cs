@@ -1,3 +1,5 @@
+using System.IO;
+
 public class GoalManager
 {
     protected List<Goal> _goals = new List<Goal>();
@@ -83,9 +85,19 @@ public class GoalManager
 
     public void ListGoalDetails()
     {
+        int index = 0;
         foreach (Goal goal in _goals)
         {
-            Console.WriteLine(goal.GetName());
+            string mark = "   ";
+            if (goal.IsComplete() == true)
+            {
+                mark = " X ";
+            }
+            else {
+                mark = "   ";
+            }
+            index += 1;
+            Console.WriteLine($"{index}. [{mark}] {goal.GetDetailsString()}");
         }
     }
 
@@ -349,14 +361,235 @@ public class GoalManager
         }
         else if (goalCreateChoice == 3)
         {
-            Console.WriteLine("CheckList Goal");
-            Console.ReadLine();
             Console.Clear();
+            Console.WriteLine("----------New Checklist Goal----------");
+            Console.WriteLine("");
+            Console.Write("What is the name of your new goal? ");
+            string newCheckListName = Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine("----------New CheckList Goal----------");
+            Console.WriteLine("");
+            Console.WriteLine($"Name: {newCheckListName}");
+            Console.Write("Whats a good description of your goal? ");
+            string newCheckListDescription = Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine("----------New CheckList Goal----------");
+            Console.WriteLine("");
+            Console.WriteLine($"Name: {newCheckListName}");
+            Console.WriteLine($"Description: {newCheckListDescription}");
+            Console.Write("How many times do you want to complete this goal in total? ");
+            int newCheckListTarget = int.Parse(Console.ReadLine());
+            Console.Clear();
+            Console.WriteLine("----------New CheckList Goal----------");
+            Console.WriteLine("");
+            Console.WriteLine($"Name: {newCheckListName}");
+            Console.WriteLine($"Description: {newCheckListDescription}");
+            Console.WriteLine($"Target: {newCheckListTarget}");
+            Console.Write("How many points will you receive after each part of the goal? ");
+            int newCheckListPoints = int.Parse(Console.ReadLine());
+            Console.Clear();
+            Console.WriteLine("----------New CheckList Goal----------");
+            Console.WriteLine("");
+            Console.WriteLine($"Name: {newCheckListName}");
+            Console.WriteLine($"Description: {newCheckListDescription}");
+            Console.WriteLine($"Target: {newCheckListTarget}");
+            Console.WriteLine($"Points:  {newCheckListPoints}");
+            Console.Write($"How many BONUS points would you like to receive after completing the goal {newCheckListTarget} times? ");
+            int newCheckListBonusPoints = int.Parse(Console.ReadLine());
+            Console.Clear();
+            bool finalDataSaved = false;
+            bool saveGoalData = true;
+            while (finalDataSaved == false)
+                {
+                //Start of while loop
+                Console.WriteLine("----------New CheckList Goal----------");
+                Console.WriteLine("");
+                Console.WriteLine($"Name: {newCheckListName}");
+                Console.WriteLine($"Description: {newCheckListDescription}");
+                Console.WriteLine($"Target: {newCheckListTarget}");
+                Console.WriteLine($"Points:  {newCheckListPoints}");
+                Console.WriteLine($"BONUS Points: {newCheckListBonusPoints}");
+                Console.WriteLine("");
+                Console.WriteLine("Goal Data Saved! What next?");
+                Console.WriteLine("1. Submit Goal");
+                Console.WriteLine("2. Edit Goal");
+                Console.WriteLine("3. Delete Goal");
+                Console.Write("Data Saved! Do you want to Submit, Edit, or Delete the goal? ");
+                string submitOrEditCheckList = Console.ReadLine();
+                if (submitOrEditCheckList == "1")
+                {
+                    finalDataSaved = true;
+                    saveGoalData = true;
+                }
+                else if (submitOrEditCheckList == "2")
+                {
+                    bool doneEditing = false;
+                    while (doneEditing == false)
+                    {
+                        Console.WriteLine("----------New CheckList Goal----------");
+                        Console.WriteLine("");
+                        Console.WriteLine($"Name: {newCheckListName}");
+                        Console.WriteLine($"Description: {newCheckListDescription}");
+                        Console.WriteLine($"Target: {newCheckListTarget}");
+                        Console.WriteLine($"Points:  {newCheckListPoints}");
+                        Console.WriteLine($"BONUS Points: {newCheckListBonusPoints}");
+                        Console.WriteLine("");
+                        Console.WriteLine("Editing Goal... ");
+                        Console.WriteLine("1. Name");
+                        Console.WriteLine("2. Description");
+                        Console.WriteLine("3. Target");
+                        Console.WriteLine("4. Points");
+                        Console.WriteLine("5. Bonus Points");
+                        Console.WriteLine("6. Finish & Submit");
+                        Console.Write("Which part would you like to edit? ");
+                        string chosenEdit = Console.ReadLine();
+                        Console.WriteLine("");
+                        //Start of Edit variations
+                        //EDIT NAME
+                        if (chosenEdit == "1")
+                        {
+                            Console.Write("What is the new name? ");
+                            newCheckListName = Console.ReadLine();
+                            Console.Clear();
+                            Console.WriteLine("");
+                            Console.WriteLine("Name Updated!");
+                            Console.WriteLine("");
+                            Console.WriteLine("----------New CheckList Goal----------");
+                            Console.WriteLine("");
+                            Console.WriteLine($"Name: {newCheckListName}");
+                            Console.WriteLine($"Description: {newCheckListDescription}");
+                            Console.WriteLine($"Target: {newCheckListTarget}");
+                            Console.WriteLine($"Points:  {newCheckListPoints}");
+                            Console.WriteLine($"BONUS Points: {newCheckListBonusPoints}");
+                            Console.WriteLine("");
+                            Console.Write("Press ENTER to continue...");
+                            Console.ReadLine();
+                        }
+                        //EDIT DESCRIPTION
+                        else if (chosenEdit == "2")
+                        {
+                            Console.Write("What is the new description? ");
+                            newCheckListDescription = Console.ReadLine();
+                            Console.Clear();
+                            Console.WriteLine("");
+                            Console.WriteLine("Description Updated!");
+                            Console.WriteLine("");
+                            Console.WriteLine("----------New CheckList Goal----------");
+                            Console.WriteLine("");
+                            Console.WriteLine($"Name: {newCheckListName}");
+                            Console.WriteLine($"Description: {newCheckListDescription}");
+                            Console.WriteLine($"Target: {newCheckListTarget}");
+                            Console.WriteLine($"Points:  {newCheckListPoints}");
+                            Console.WriteLine($"BONUS Points: {newCheckListBonusPoints}");
+                            Console.WriteLine("");
+                            Console.Write("Press ENTER to continue...");
+                            Console.ReadLine();
+                        }
+                        //EDIT TARGET
+                        else if (chosenEdit == "3")
+                        {
+                            Console.Write("What is the new target? ");
+                            newCheckListTarget = int.Parse(Console.ReadLine());
+                            Console.Clear();
+                            Console.WriteLine("");
+                            Console.WriteLine("Target Updated!");
+                            Console.WriteLine("");
+                            Console.WriteLine("----------New CheckList Goal----------");
+                            Console.WriteLine("");
+                            Console.WriteLine($"Name: {newCheckListName}");
+                            Console.WriteLine($"Description: {newCheckListDescription}");
+                            Console.WriteLine($"Target: {newCheckListTarget}");
+                            Console.WriteLine($"Points:  {newCheckListPoints}");
+                            Console.WriteLine($"BONUS Points: {newCheckListBonusPoints}");
+                            Console.WriteLine("");
+                            Console.Write("Press ENTER to continue...");
+                            Console.ReadLine();
+                        }
+                        //EDIT POINTS
+                        else if (chosenEdit == "4")
+                        {
+                            Console.Write("What is the new small point total? ");
+                            newCheckListPoints = int.Parse(Console.ReadLine());
+                            Console.Clear();
+                            Console.WriteLine("");
+                            Console.WriteLine("Points Updated!");
+                            Console.WriteLine("");
+                            Console.WriteLine("----------New CheckList Goal----------");
+                            Console.WriteLine("");
+                            Console.WriteLine($"Name: {newCheckListName}");
+                            Console.WriteLine($"Description: {newCheckListDescription}");
+                            Console.WriteLine($"Target: {newCheckListTarget}");
+                            Console.WriteLine($"Points:  {newCheckListPoints}");
+                            Console.WriteLine($"BONUS Points: {newCheckListBonusPoints}");
+                            Console.WriteLine("");
+                            Console.Write("Press ENTER to continue...");
+                            Console.ReadLine();
+                        }
+                        //EDIT BONUS POINTS
+                        else if (chosenEdit == "5")
+                        {
+                            Console.Write("What is the new BONUS point total? ");
+                            newCheckListBonusPoints = int.Parse(Console.ReadLine());
+                            Console.Clear();
+                            Console.WriteLine("");
+                            Console.WriteLine("BONUS Points Updated!");
+                            Console.WriteLine("");
+                            Console.WriteLine("----------New CheckList Goal----------");
+                            Console.WriteLine("");
+                            Console.WriteLine($"Name: {newCheckListName}");
+                            Console.WriteLine($"Description: {newCheckListDescription}");
+                            Console.WriteLine($"Target: {newCheckListTarget}");
+                            Console.WriteLine($"Points:  {newCheckListPoints}");
+                            Console.WriteLine($"BONUS Points: {newCheckListBonusPoints}");
+                            Console.WriteLine("");
+                            Console.Write("Press ENTER to continue...");
+                            Console.ReadLine();
+                        }
+                        //FINISH AND SUBMIT
+                        else if (chosenEdit == "6")
+                        {
+                            Console.WriteLine("");
+                            Console.WriteLine("----------New CheckList Goal----------");
+                            Console.WriteLine("");
+                            Console.WriteLine($"Name: {newCheckListName}");
+                            Console.WriteLine($"Description: {newCheckListDescription}");
+                            Console.WriteLine($"Target: {newCheckListTarget}");
+                            Console.WriteLine($"Points:  {newCheckListPoints}");
+                            Console.WriteLine($"BONUS Points: {newCheckListBonusPoints}");
+                            Console.WriteLine("");
+                            Console.WriteLine("");
+                            doneEditing = true;
+                            saveGoalData = true;
+                            finalDataSaved = true;
+                        }
+                        //CATCHING TYPOS
+                        else {
+                            Console.WriteLine("That is an invalid input! Please press ENTER to try again...");
+                            Console.ReadLine();
+                        }
+                    }
+                }
+                else if (submitOrEditCheckList == "3")
+                {
+                    saveGoalData = false;
+                    finalDataSaved = true;
+                    Console.WriteLine("");
+                    Console.WriteLine("This Goal has been discarded! Press ENTER to continue...");
+                    Console.ReadLine();
+                }
+                if (saveGoalData == true)
+                {
+                    ChecklistGoal checklistGoal = new ChecklistGoal(newCheckListName, newCheckListDescription, newCheckListPoints, newCheckListTarget, newCheckListBonusPoints);
+                    _goals.Add(checklistGoal);
+                    Console.Write("Goal Created! Press ENTER to Continue... ");
+                    Console.ReadLine();
+                }
+            }
             goalCreateSelected = true;
         }
         else if (goalCreateChoice == 4)
         {
-            Console.WriteLine("Done... see ya soon");
+            Console.WriteLine("Thanks for coming! Have fun with your quest! Press ENTER to continue");
             Console.ReadLine();
             Console.Clear();
             goalCreateSelected = true;
@@ -377,7 +610,25 @@ public class GoalManager
 
     public void SaveGoals()
     {
-        //
+        Console.Write("Give your goals file a name (Don't add a .txt path to it): ");
+        string filePath = $"{Console.ReadLine()}.txt";
+
+        using (StreamWriter outputFile = new StreamWriter(filePath))
+        {
+            outputFile.WriteLine(_score);
+            foreach (Goal goal in _goals)
+            {
+                if (goal.GetType() == typeof(SimpleGoal))
+                {
+                    outputFile.WriteLine($"simpleGoal|{goal.GetName()}|{goal.GetDescription}|{goal.GetPoints()}|{goal.IsComplete()}");
+                }
+                else if (goal.GetType() == typeof(ChecklistGoal))
+                {
+                    outputFile.WriteLine($"checklistGoal|{goal.GetName()}|{goal.GetDescription()}|{goal.GetPoints()}|{goal.GetBonusPoints()}")
+                }
+                
+            }
+        }
     }
 
     public void LoadGoals()
